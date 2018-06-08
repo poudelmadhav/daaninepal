@@ -29,6 +29,7 @@ class UserDashboard < Administrate::BaseDashboard
     confirmation_token: Field::String,
     confirmed_at: Field::DateTime,
     confirmation_sent_at: Field::DateTime,
+    donor: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -67,6 +68,7 @@ class UserDashboard < Administrate::BaseDashboard
     :confirmation_token,
     :confirmed_at,
     :confirmation_sent_at,
+    :donor,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -91,6 +93,7 @@ class UserDashboard < Administrate::BaseDashboard
     :confirmation_token,
     :confirmed_at,
     :confirmation_sent_at,
+    :donor,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
