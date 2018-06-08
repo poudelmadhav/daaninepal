@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <% if current_user.admin? %>
-    <p class="lead">Admin</p>
+    <p class="lead">Admin Panel</p>
   <% elsif current_user.donor? && !current_user.admin? %>
     <%= link_to 'Request for donation', new_donorform_path, class: 'btn btn-primary float-right' %>
   <% else %>
@@ -12,7 +12,7 @@
 
 <div class="row">
   <div class="col-sm-6">
-    <h4>List of causes to donate</h4>
+    <h4>List of approved causes to donate</h4>
   </div>
 
   <div class="col-sm-6 text-right">
@@ -38,16 +38,88 @@
       <% @donorforms.each do |donorform| %>
         <%= content_tag :tr, id: dom_id(donorform), class: dom_class(donorform) do %>
           
-
+                    <% if donorform.approve? %>
                       <td><%= donorform.title %></td>
                       <td>Rs.<%= donorform.amount %>/-</td>
                       <td><%= donorform.deadline %></td>
-          
-          
-            <td><%= link_to 'Show', donorform %></td>
+                      <td><%= link_to 'View', donorform %></td>
+                    <% end %>
           
         <% end %>
       <% end %>
     </tbody>
   </table>
 </div>
+
+<% if current_user.admin? %>
+
+<hr>
+
+<h4>List of pending causes to donate.(Wating for approval)</h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+      
+
+              <th>Title</th>
+              <th>Amount</th>
+              <th>Deadline</th>
+              
+            <th></th>
+          
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @donorforms.each do |donorform| %>
+          <%= content_tag :tr, id: dom_id(donorform), class: dom_class(donorform) do %>
+            
+                      <% if !donorform.approve? && !donorform.reject? %>
+                        <td><%= donorform.title %></td>
+                        <td>Rs.<%= donorform.amount %>/-</td>
+                        <td><%= donorform.deadline %></td>
+                        <td><%= link_to 'View', donorform %></td>
+                      <% end %>
+            
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h4>List of Rejected causes</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+        
+
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Deadline</th>
+                
+              <th></th>
+            
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @donorforms.each do |donorform| %>
+            <%= content_tag :tr, id: dom_id(donorform), class: dom_class(donorform) do %>
+              
+                        <% if donorform.reject? %>
+                          <td><%= donorform.title %></td>
+                          <td>Rs.<%= donorform.amount %>/-</td>
+                          <td><%= donorform.deadline %></td>
+                          <td><%= link_to 'View', donorform %></td>
+                        <% end %>
+              
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
