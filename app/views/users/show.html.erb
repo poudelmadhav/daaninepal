@@ -10,3 +10,12 @@
 		<% end %>
 	</div>
 </div>
+<br>
+<hr>
+<h1>Activity</h1>
+<hr>
+<% if @user.donorforms.exists? %>
+	<% @user.donorforms.each do |donorform| %>
+	<%= donorform.user_name %> has made a donation request <%= distance_of_time_in_words(DateTime.now, donorform.created_at) %> <br>
+	<% end %>
+<% end %>
