@@ -1,0 +1,65 @@
+<% if user_signed_in? %>
+  <% if current_user.admin? %>
+    <p class="lead">Admin</p>
+  <% elsif current_user.donor? && !current_user.admin? %>
+    <%= link_to 'Request for donation', new_donorform_path, class: 'btn btn-primary float-right' %>
+  <% else %>
+    <p class="lead">Donor Seeker</p>
+  <% end %>
+<% end %>
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Donorforms</h1>
+  </div>
+
+  <div class="col-sm-6 text-right">
+  <%= link_to new_donorform_path, class: 'btn btn-primary' do %>
+    Add New Donorform
+  <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+    
+
+            <th>User</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Promises</th>
+            <th>Approve</th>
+            <th>Reject</th>
+            <th>Deadline</th>
+            
+          <th></th>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @donorforms.each do |donorform| %>
+        <%= content_tag :tr, id: dom_id(donorform), class: dom_class(donorform) do %>
+          
+
+                      <td><%= donorform.user %></td>
+                      <td><%= donorform.title %></td>
+                      <td><%= donorform.description %></td>
+                      <td><%= donorform.amount %></td>
+                      <td><%= donorform.promises %></td>
+                      <td><%= donorform.approve %></td>
+                      <td><%= donorform.reject %></td>
+                      <td><%= donorform.deadline %></td>
+          
+          
+            <td><%= link_to 'Show', donorform %></td>
+          
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

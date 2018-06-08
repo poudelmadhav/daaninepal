@@ -1,0 +1,69 @@
+<%= form_with(model: donorform, local: true) do |form| %>
+  <% if donorform.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(donorform.errors.count, "error") %> prohibited this donorform from being saved:</h2>
+
+      <ul>
+      <% donorform.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :amount %>
+    <%= form.number_field :amount, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :promises %>
+    <%= form.text_area :promises, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :approve %>
+    <%= form.check_box :approve, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :reject %>
+    <%= form.check_box :reject, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :deadline %>
+    <%= form.datetime_select :deadline, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if donorform.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', donorform, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if donorform.persisted? %>
+      <%= link_to "Cancel", donorform, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", donorforms_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
