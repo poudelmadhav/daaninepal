@@ -26,6 +26,7 @@ class DonorformsController < ApplicationController
   # POST /donorforms.json
   def create
     @donorform = Donorform.new(donorform_params)
+    @donorform = current_user
 
     respond_to do |format|
       if @donorform.save
