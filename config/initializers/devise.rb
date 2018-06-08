@@ -8,8 +8,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '77bb2febea80926b495372ff72e01ee571f9d9643f9ee714db3a0fa257b68ed9e2185884084552f285bcaa120114f3412ed94a34362edfbaa7bea0d6ebd61cb4'
-  
+  config.secret_key = '8dcb761bc1eb9cba0248619fcb305c633ae350237db8af6a2c6037b84ac3041f97421a628d223d09c48d271a8b37fa47cd799eff8181040f0dc747c3ea79c15f'
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = Figaro.env.username
+  config.mailer_sender = Figaro.env.gmail_username
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Devise::Mailer'
