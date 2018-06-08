@@ -1,13 +1,11 @@
 class DonatedAmountsController < ApplicationController
 	before_action :authenticate_user!
 
-	def new
-		@amount = DonatedAmount.new
-	end
 
 	def create
-		@amount = current_user.donate_damounts.create(amount_params)
-		if @amount.valid?
+		@donorform = Donorform.find(params[:donated_amount_id])
+		@donated_amount = @donorform.donated_amounts.create(amount_params.merge(user_id: current_user.id))
+		if @donated_amount.valid?
 	  		flash[:success] = "You have successfully donated!"
 	    	redirect_to root_path
 	  	else

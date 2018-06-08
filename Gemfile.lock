@@ -274,6 +274,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    simple_form (4.0.1)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     sitemap_generator (6.0.1)
       builder (~> 3.0)
     spring (2.0.2)
@@ -350,6 +353,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   sidekiq (~> 5.0)
+  simple_form
   sitemap_generator (~> 6.0, >= 6.0.1)
   spring
   spring-watcher-listen (~> 2.0.0)
