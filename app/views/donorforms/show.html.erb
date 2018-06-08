@@ -14,7 +14,7 @@
 
 <dl class="dl-horizontal">
   <dt>User:</dt>
-  <dd><%= @donorform.user_name %></dd>
+  <dd><%= link_to @donorform.user_name, user_path(@donorform.user_id) %></dd>
 
   <dt>Title:</dt>
   <dd><%= @donorform.title %></dd>
