@@ -12,7 +12,6 @@ class UserDashboard < Administrate::BaseDashboard
     services: Field::HasMany,
     id: Field::Number,
     email: Field::String,
-		password: Field::String,
     encrypted_password: Field::String,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
@@ -27,6 +26,9 @@ class UserDashboard < Administrate::BaseDashboard
     admin: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    confirmation_token: Field::String,
+    confirmed_at: Field::DateTime,
+    confirmation_sent_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -62,13 +64,15 @@ class UserDashboard < Administrate::BaseDashboard
     :admin,
     :created_at,
     :updated_at,
+    :confirmation_token,
+    :confirmed_at,
+    :confirmation_sent_at,
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-		:password,
     :notifications,
     :services,
     :email,
@@ -84,6 +88,9 @@ class UserDashboard < Administrate::BaseDashboard
     :name,
     :announcements_last_read_at,
     :admin,
+    :confirmation_token,
+    :confirmed_at,
+    :confirmation_sent_at,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
