@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id
   has_many :services
   has_many :donorforms, dependent: :destroy
+  has_many :donated_amounts, dependent: :destroy
 end
