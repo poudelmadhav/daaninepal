@@ -6,6 +6,7 @@
   <% else %>
     <p class="lead">Donor Seeker</p>
   <% end %>
+  <br>
 <% end %>
 
 
@@ -27,7 +28,6 @@
             <th>Title</th>
             <th>Amount</th>
             <th>User</th>
-            <th>Promises</th>
             <th>Deadline</th>
             
           <th></th>
@@ -42,8 +42,7 @@
 
                       <td><%= donorform.title %></td>
                       <td><%= donorform.amount %></td>
-                      <td><%= donorform.user %></td>
-                      <td><%= donorform.promises %></td>
+                      <td><%= donorform.user_name %></td>
                       <td><%= donorform.deadline %></td>
           
           

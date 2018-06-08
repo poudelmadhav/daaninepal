@@ -1,4 +1,4 @@
-<div class="page-header">
+<!-- <div class="page-header">
   <%= link_to donorforms_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     All Donorforms
@@ -8,11 +8,13 @@
     Edit
   <% end %>
   <h1>Show donorform</h1>
-</div>
+</div> -->
+
+<h1>Donation Request #<%= @donorform.id %></h1>
 
 <dl class="dl-horizontal">
   <dt>User:</dt>
-  <dd><%= @donorform.user %></dd>
+  <dd><%= @donorform.user_name %></dd>
 
   <dt>Title:</dt>
   <dd><%= @donorform.title %></dd>
@@ -25,12 +27,6 @@
 
   <dt>Promises:</dt>
   <dd><%= @donorform.promises %></dd>
-
-  <dt>Approve:</dt>
-  <dd><%= @donorform.approve %></dd>
-
-  <dt>Reject:</dt>
-  <dd><%= @donorform.reject %></dd>
 
   <dt>Deadline:</dt>
   <dd><%= @donorform.deadline %></dd>
