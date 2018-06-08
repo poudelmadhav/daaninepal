@@ -1,5 +1,7 @@
 <p>Welcome <%= @email %>!</p>
 
+<p>Your Daani Nepal account has been created. You can now start donating to causes listed at <a href="https://donation-nepal.herokuapp.com">donation-nepal.herokuapp.com</a>:</p>
+
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
