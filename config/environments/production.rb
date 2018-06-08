@@ -93,4 +93,22 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  # mail Settings
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+   :address              => "smtp.zoho.com",
+   :port                 => 465,
+   :domain               => "www.zoho.com",
+   :user_name            => ENV['username'],
+   :password             => ENV['password'],
+   :authentication       => "plain",
+   :enable_starttls_auto => true,
+   :tls                  => true,
+   :ssl                  => true
+  }
+
+  config.action_mailer.default_url_options = { :host => "https://donation-nepal.herokuapp.com" }
 end
