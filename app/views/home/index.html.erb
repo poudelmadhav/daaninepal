@@ -1,2 +1,9 @@
-<h1>Welcome to Donation Nepal!</h1>
-<p class="lead">Welcome to Donation Nepal.</p>
+<% if user_signed_in? %>
+	<% if current_user.admin? %>
+		<p class="lead">Admin</p>
+	<% elsif current_user.donor? && !current_user.admin? %>
+		<p class="lead">Donor</p>
+	<% else %>
+		<p class="lead">Donor Seeker</p>
+	<% end %>
+<% end %>
