@@ -1,2 +1,12 @@
-<%= image_tag "https://goo.gl/2wWxZy" %>
-<%= @user.name %>
+<div class="row">
+	<div class="col-md-6">
+		<%= image_tag "https://goo.gl/2wWxZy", class: 'rounded', height: 100, width: 100 %>
+	</div>
+	<div class="col-md-6">
+		<%= @user.name %><br>
+		Total donation request: <%= @user.donorforms.count %>
+		<% if @user.donorforms.count == 0 %>
+			No donations made!
+		<% end %>
+	</div>
+</div>
