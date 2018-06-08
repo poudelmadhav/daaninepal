@@ -30,6 +30,7 @@ class DonorformsController < ApplicationController
 
     respond_to do |format|
       if @donorform.save
+        WelcomeMailer.welcome_email(current_user).deliver
         format.html { redirect_to @donorform, notice: 'Donorform was successfully created.' }
         format.json { render :show, status: :created, location: @donorform }
       else
