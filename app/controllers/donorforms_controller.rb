@@ -24,6 +24,7 @@ class DonorformsController < ApplicationController
 
   # POST /donorforms
   # POST /donorforms.json
+
   def create
     @donorform = Donorform.new(donorform_params)
     @donorform.user = current_user
@@ -42,27 +43,33 @@ class DonorformsController < ApplicationController
 
   # PATCH/PUT /donorforms/1
   # PATCH/PUT /donorforms/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @donorform.update(donorform_params)
-  #       format.html { redirect_to @donorform, notice: 'Donorform was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @donorform }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @donorform.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    if current_user.admin? 
+      respond_to do |format|
+        if @donorform.update(donorform_params)
+          format.html { redirect_to @donorform, notice: 'Donorform was successfully updated.' }
+          format.json { render :show, status: :ok, location: @donorform }
+        else
+          format.html { render :edit }
+          format.json { render json: @donorform.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
 
   # DELETE /donorforms/1
   # DELETE /donorforms/1.json
-  # def destroy
-  #   @donorform.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to donorforms_url, notice: 'Donorform was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def destroy
+    if current_user.admin?
+      @donorform.destroy
+
+      respond_to do |format|
+        format.html { redirect_to donorforms_url, notice: 'Donorform was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
