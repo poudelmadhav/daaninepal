@@ -32,6 +32,7 @@
               <img src="https://i.imgur.com/vlp9UEg.png" class="rounded" style="height: 20px; width: 20px;">
             <% end %>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown">
+              <%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %>
               <% if current_user.admin? %>
                 <%= link_to "Admin Area", admin_root_path, class: "dropdown-item" %>
               <% end %>

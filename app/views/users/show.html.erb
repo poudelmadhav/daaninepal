@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-6">
 		<%= @user.name %><br>
-		Total donation request: <%= @user.donorforms.count %>
+		Total donation request: <%= @user.donorforms.count %><br>
 		<% if @user.donorforms.count == 0 %>
 			No donations made!
 		<% end %>
