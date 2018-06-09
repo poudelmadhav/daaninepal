@@ -55,7 +55,7 @@
 </div>
   
 <dl class="dl-horizontal">
-  <dt>By:</dt>
+  <dt>Requested By:</dt>
   <dd><%= link_to @donorform.user_name, user_path(@donorform.user_id) %></dd>
 
   <dt>Description:</dt>
@@ -69,6 +69,9 @@
 
   <dt>Donation Deadline:</dt>
   <dd><%= @donorform.deadline %></dd>
+
+  <dt>Status:</dt>
+  <dd><%= @donorform.amount - @donorform.donations.sum("donation_amount") %>/<%= @donorform.amount %></dd>
 
   <% if current_user.admin %>
 
@@ -99,3 +102,4 @@
     <% end %>
   </table>
 </div>
+
