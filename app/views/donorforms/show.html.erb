@@ -71,7 +71,7 @@
   <dd><%= @donorform.deadline %></dd>
 
   <dt>Status:</dt>
-  <dd><%= @donorform.amount - @donorform.donations.sum("donation_amount") %>/<%= @donorform.amount %></dd>
+  <dd><%= @donorform.donations.sum("donation_amount") %>/<%= @donorform.amount %></dd>
 
   <% if current_user.admin %>
 

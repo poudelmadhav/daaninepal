@@ -39,7 +39,7 @@
 		      <td>Rs.<%= donorform.amount %>/-</td>
 		      <td>
 		      	<% if donorform.approve? %>
-		      	<%= donorform.amount - donorform.donations.sum("donation_amount") %>/<%= donorform.amount %>
+		      	<%= donorform.donations.sum("donation_amount") %>/<%= donorform.amount %>
 		      	<% elsif donorform.approve? && donorform.amount == donorform.donations.sum("donation_amount") %>
 		      			Completed
 		      	<% else %>

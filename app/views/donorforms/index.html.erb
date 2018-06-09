@@ -42,7 +42,7 @@
                     <% if donorform.approve? %>
                       <td><%= donorform.title %></td>
                       <td>Rs.<%= donorform.amount %>/-</td>
-                      <td><%= donorform.amount - donorform.donations.sum("donation_amount") %>/<%= donorform.amount %></td>
+                      <td><%= donorform.donations.sum("donation_amount") %>/<%= donorform.amount %></td>
                       <td><%= donorform.deadline %></td>
                       <td><%= link_to 'View', donorform %></td>
                     <% end %>
