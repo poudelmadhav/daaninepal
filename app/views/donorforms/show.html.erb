@@ -34,9 +34,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <%= simple_form_for DonatedAmount.new, url: donorform_donated_forms_path(@donorform) do |f| %>
+          <%= simple_form_for Donation.new, url: donorform_donations_path(@donorform), method: :post do |f| %>
           <div class="modal-body">
-            Rs. <%= f.input :damount %>
+            Rs. <%= f.input :donation_amount %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

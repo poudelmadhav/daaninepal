@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'rails/s'
   namespace :admin do
       resources :users
       resources :announcements
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :donorforms do
-    resources :donated_forms
+    resources :donations
   end
   resources :users, only: :show
 
