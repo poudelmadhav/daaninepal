@@ -4,6 +4,8 @@ class DonationsController < ApplicationController
 		@donation = @donorform.donations.create(donation_params.merge(user_id: current_user.id))
 		if @donation.valid?
 			flash[:success] = "Donation Successful!"
+			WelcomeMailer.thank_for_donation(current_user).deliver
+			WelcomeMailer.donation_received(@donorform.user).deliver
 			redirect_to root_path
 		else
 			flash[:alert] = "Invalid Amount!"

@@ -19,3 +19,8 @@
 	<%= donorform.user_name %> has made a donation request <%= distance_of_time_in_words(DateTime.now, donorform.created_at) %> ago. <br>
 	<% end %>
 <% end %>
+<hr>
+
+<% @user.donations.each do |donor| %>
+	<%= donor.user_name %> has made a donation <%= distance_of_time_in_words(DateTime.now, donor.created_at) %> ago. <br>
+<% end %>

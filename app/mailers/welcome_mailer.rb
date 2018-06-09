@@ -6,4 +6,14 @@ class WelcomeMailer < ApplicationMailer
 	   mail(to: @user.email, subject: 'Donation request under review!')
 	end
 
+	def donation_received(user)
+		@user = user
+	   	mail(to: @user.email, subject: 'Donation Received!')
+	end
+
+	def thank_for_donation(user)
+		@user = user
+	   	mail(to: @user.email, subject: 'Thank you!')
+	end
+
 end
