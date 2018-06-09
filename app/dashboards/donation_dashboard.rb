@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class DonorformDashboard < Administrate::BaseDashboard
+class DonationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,15 +9,9 @@ class DonorformDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
-    donations: Field::HasMany,
+    donorform: Field::BelongsTo,
     id: Field::Number,
-    title: Field::String,
-    description: Field::Text,
-    amount: Field::Number,
-    promises: Field::Text,
-    approve: Field::Boolean,
-    reject: Field::Boolean,
-    deadline: Field::DateTime,
+    donation_amount: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -29,24 +23,18 @@ class DonorformDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :user,
-    :donations,
+    :donorform,
     :id,
-    :title,
+    :donation_amount,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :user,
-    :donations,
+    :donorform,
     :id,
-    :title,
-    :description,
-    :amount,
-    :promises,
-    :approve,
-    :reject,
-    :deadline,
+    :donation_amount,
     :created_at,
     :updated_at,
   ].freeze
@@ -56,20 +44,14 @@ class DonorformDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
-    :donations,
-    :title,
-    :description,
-    :amount,
-    :promises,
-    :approve,
-    :reject,
-    :deadline,
+    :donorform,
+    :donation_amount,
   ].freeze
 
-  # Overwrite this method to customize how donorforms are displayed
+  # Overwrite this method to customize how donations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(donorform)
-  #   "Donorform ##{donorform.id}"
+  # def display_resource(donation)
+  #   "Donation ##{donation.id}"
   # end
 end
