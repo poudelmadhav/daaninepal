@@ -3,11 +3,8 @@
 		<%= image_tag "https://goo.gl/2wWxZy", class: 'rounded', height: 100, width: 100 %>
 	</div>
 	<div class="col-md-6">
-		<%= @user.name %><br>
+		<h3><%= @user.name %></h3><br>
 		Total donation request: <%= @user.donorforms.count %><br>
-		<% if @user.donorforms.count == 0 %>
-			No donations made!
-		<% end %>
 		Total donation made: <%= @user.donations.count %><br>
 	</div>
 </div>
@@ -26,10 +23,26 @@
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
   	
 	<% if @user.donorforms.exists? %>
-		<% @user.donorforms.each do |donorform| %>
-		<%= donorform.user_name %> has made a donation request <%= distance_of_time_in_words(DateTime.now, donorform.created_at) %> ago. <br>
-		<% end %>
+		<div class="table-responsive">
+		  <table class="table table-striped table-bordered table-hover">
+		    <thead>
+		      <tr>
+		        <th>Requested By</th>
+		        <th>Amount</th>
+		        <th>Deadline</th>
+		      </tr>
+		    </thead>
+		    <% @user.donorforms.each do |donorform| %>
+		    <tbody>
+		      <td><%= link_to donorform.user_name, user_path(donorform.user) %></td>
+		      <td>Rs.<%= donorform.amount %>/-</td>
+		      <td><%= donorform.deadline %></td>
+		    </tbody>
+		    <% end %>
+		  </table>
+		</div>
 	<% end %>
+
 
   </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
