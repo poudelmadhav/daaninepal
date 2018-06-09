@@ -29,6 +29,7 @@
 		      <tr>
 		        <th>Requested By</th>
 		        <th>Amount</th>
+		        <th>Status</th>
 		        <th>Deadline</th>
 		      </tr>
 		    </thead>
@@ -36,6 +37,16 @@
 		    <tbody>
 		      <td><%= link_to donorform.user_name, user_path(donorform.user) %></td>
 		      <td>Rs.<%= donorform.amount %>/-</td>
+		      <td>
+		      	<% if donorform.approve? %>
+		      	<%= donorform.amount - donorform.donations.sum("donation_amount") %>/<%= donorform.amount %>
+		      	<% elsif donorform.approve? && donorform.amount == donorform.donations.sum("donation_amount") %>
+		      			Completed
+		      	<% else %>
+		      		Pending approval
+		      	<% end %>
+		      		
+		      	</td>
 		      <td><%= donorform.deadline %></td>
 		    </tbody>
 		    <% end %>
