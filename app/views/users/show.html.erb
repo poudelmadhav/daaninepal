@@ -8,19 +8,35 @@
 		<% if @user.donorforms.count == 0 %>
 			No donations made!
 		<% end %>
+		Total donation made: <%= @user.donations.count %><br>
 	</div>
 </div>
 <br>
 <hr>
-<h1>Activity</h1>
-<hr>
-<% if @user.donorforms.exists? %>
-	<% @user.donorforms.each do |donorform| %>
-	<%= donorform.user_name %> has made a donation request <%= distance_of_time_in_words(DateTime.now, donorform.created_at) %> ago. <br>
-	<% end %>
-<% end %>
-<hr>
 
-<% @user.donations.each do |donor| %>
-	<%= donor.user_name %> has made a donation <%= distance_of_time_in_words(DateTime.now, donor.created_at) %> ago. <br>
-<% end %>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Donation Request</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Donation Made</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  	
+	<% if @user.donorforms.exists? %>
+		<% @user.donorforms.each do |donorform| %>
+		<%= donorform.user_name %> has made a donation request <%= distance_of_time_in_words(DateTime.now, donorform.created_at) %> ago. <br>
+		<% end %>
+	<% end %>
+
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  	
+  	<% @user.donations.each do |donor| %>
+		<%= donor.user_name %> has made a donation <%= distance_of_time_in_words(DateTime.now, donor.created_at) %> ago. <br>
+	<% end %>
+
+  </div>
+</div>
