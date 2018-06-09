@@ -21,6 +21,10 @@
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: 'Confirm Password' %>
       </div>
 
+      <div class="alert alert-info text-center">
+        By clicking Sign Up, you agree to our <%= link_to 'Terms of Service', terms_path, class: 'alert-link' %> and <%= link_to 'Privacy', privacy_path, class: 'alert-link' %>.
+      </div>
+
       <div class="form-group">
         <%= f.submit "Sign up", class: "btn btn-primary btn-block btn-lg" %>
       </div>
