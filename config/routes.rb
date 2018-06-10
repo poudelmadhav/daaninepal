@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :notifications
       resources :services
       resources :donorforms
+      resources :donations
 
       root to: "users#index"
     end
