@@ -5,7 +5,7 @@ class DonationsController < ApplicationController
 		if @donation.valid?
 			flash[:success] = "Donation Successful!"
 			WelcomeMailer.thank_for_donation(current_user).deliver
-			WelcomeMailer.donation_received(@donorform.user).deliver
+			WelcomeMailer.donation_received(@donorform.user, current_user, @donation.donation_amount).deliver
 			redirect_to root_path
 		else
 			flash[:alert] = "Invalid Amount!"

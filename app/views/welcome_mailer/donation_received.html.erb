@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h4>Hi <%= @user.name %>,</h4>
+    <h4>Hi <%= @seeker.name %>,</h4>
     <p>
-     Congratulations, you have received a donation from <strong><%= current_user.name %></strong>.
+     Congratulations, you have received a donation of Rs.<%= @amount %> from <strong><%= @donor.name %></strong>.
     </p>
     From,<br>
     <strong>Your friends at Donation Nepal.</strong>
