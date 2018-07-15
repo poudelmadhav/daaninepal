@@ -2,18 +2,15 @@
 	<h1>Notifications</h1>
 	<% if @notifications.present? %>
 		<div class="all-notification">
-				<div class="panel-group">				
-				<% @notifications.each do |notification| %>
-					<div class="panel panel-default">
-						<div class="panel-body">
-						<%= render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification} %>
-						</div>
+			<div class="panel-group">				
+			<% @notifications.each do |notification| %>
+				<div class="panel panel-default">
+					<div class="panel-body">
+					<%= render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification} %>
 					</div>
 				</div>
-				<% end %>
-				<div class = "text-center">
-				  <%= will_paginate @notifications %>
-				</div>
+			<% end %>
+			</div>
 		</div>
 	<% else %>
 		<div class="alert alert-danger">
