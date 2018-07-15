@@ -1,0 +1,21 @@
+/* unread css */
+.unread {
+  background: #fff7f7;
+  border-left: 3px solid red;
+  padding: 0.5em 10px;
+}
+
+/* list style none for all notification page */
+.all-notification li {
+	list-style: none;
+}
+
+/* bootstrap badge background color red for unread notification count */
+.nav-notify .badge {
+	background-color: #fa3e3e;
+}
+
+/* notification header size */
+.nav-notify .dropdown-header {
+	font-size: 15px;
+}

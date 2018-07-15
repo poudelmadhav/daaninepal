@@ -1,7 +1,23 @@
-<h1>Notifications</h1>
-
-<ul>
-  <% @notifications.each do |notification| %>
-    <li><%= render "notifications/#{notification.notifiable_type.underscore}/#{notification.action.underscore}", actor: notification.actor, notifiable: notification.notifiable  %></li>
-  <% end %>
-</ul>
+<div class="col-sm-8 col-sm-offset-2">
+	<h1>Notifications</h1>
+	<% if @notifications.present? %>
+		<div class="all-notification">
+				<div class="panel-group">				
+				<% @notifications.each do |notification| %>
+					<div class="panel panel-default">
+						<div class="panel-body">
+						<%= render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification} %>
+						</div>
+					</div>
+				</div>
+				<% end %>
+				<div class = "text-center">
+				  <%= will_paginate @notifications %>
+				</div>
+		</div>
+	<% else %>
+		<div class="alert alert-danger">
+		  You have no notifications yet!
+		</div>
+	<% end %>
+</div>

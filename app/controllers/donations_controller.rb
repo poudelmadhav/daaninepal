@@ -2,6 +2,7 @@ class DonationsController < ApplicationController
 	def create
 		@donorform = Donorform.find(params["donorform_id"])
 		@donation = @donorform.donations.create(donation_params.merge(user_id: current_user.id))
+		Notification.create(recipient: @donorform.user, actor: current_user, action: "donated", notifiable: @donation)
 		if @donation.valid?
 			flash[:success] = "Donation Successful!"
 			WelcomeMailer.thank_for_donation(current_user).deliver
