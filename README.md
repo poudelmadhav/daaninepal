@@ -1,24 +1,8 @@
-# README
+# Daani Nepal
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a cloud funding platform developed through Ruby on Rails.
+This is developed at Hackathon conducted by New Summit and Universal College at Shaktinagar. This is result woderful experience and 30 hours of hard work and we came 2nd runner up in this competition.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Contributers
+@poudelmadhav
+@kaizokush
