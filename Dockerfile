@@ -1,83 +1,87 @@
-# syntax = docker/dockerfile:1
+# syntax=docker/dockerfile:1
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+# ---------------------------
+# Base image
+# ---------------------------
 ARG RUBY_VERSION=2.5.1
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
+FROM ruby:$RUBY_VERSION-slim AS base
 
-# Rails app lives here
 WORKDIR /rails
 
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
+ENV RAILS_ENV=production \
+    BUNDLE_DEPLOYMENT=1 \
+    BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_WITHOUT="development"
 
-
-# Throw-away build stage to reduce size of final image
+# ---------------------------
+# Build stage
+# ---------------------------
 FROM base AS build
 
-# Configure apt to use archive.debian.org for old Stretch repos
+# Use archive.debian.org for Stretch and disable expired checks
 RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
     echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# Install packages needed to build gems and node modules
+# Install build dependencies (allow unauthenticated due to expired keys)
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y --allow-unauthenticated build-essential curl git libpq-dev libvips node-gyp pkg-config python-is-python3
+    apt-get install --no-install-recommends -y --allow-unauthenticated \
+      build-essential curl git libpq-dev libvips node-gyp pkg-config python && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install JavaScript dependencies
-ARG NODE_VERSION=20.11.1
+# Install Node and Yarn
+ARG NODE_VERSION=10.24.1
 ARG YARN_VERSION=1.22.21
 ENV PATH=/usr/local/node/bin:$PATH
+
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
     npm install -g yarn@$YARN_VERSION && \
     rm -rf /tmp/node-build-master
 
-# Install application gems
+# Install Ruby gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-# Install node modules
+
+# Install JS dependencies
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# Copy application code
+# Copy app code and precompile assets
 COPY . .
-
-# Precompiling assets for production without requiring secret SECRET_KEY_BASE
 RUN SECRET_KEY_BASE=1 ./bin/rails assets:precompile
 
-# Final stage for app image
-FROM base
+# ---------------------------
+# Final runtime image
+# ---------------------------
+FROM base AS final
 
-# Configure apt to use archive.debian.org for old Stretch repos
+# Use archive.debian.org for Stretch
 RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
     echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list && \
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
-# Install packages needed for deployment
+# Install runtime dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y --allow-unauthenticated curl libvips postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y --allow-unauthenticated \
+      curl libvips postgresql-client && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
-# Copy built artifacts: gems, application
+# Copy built artifacts
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /usr/local/node /usr/local/node
 COPY --from=build /rails /rails
 
 ENV PATH=$PATH:/usr/local/node/bin
 
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
+# Use non-root user
+RUN useradd -m rails --shell /bin/bash && \
     chown -R rails:rails db log tmp
 USER rails:rails
 
-# Entrypoint prepares the database.
+# Entrypoint & default command
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
