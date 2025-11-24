@@ -2,7 +2,7 @@
 
 ## Build image
 ```shell
-docker build -t daaninepal .
+docker build --platform linux/amd64 -t daaninepal .
 ```
 
 ## Set required environment variables
