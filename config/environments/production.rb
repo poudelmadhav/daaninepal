@@ -97,18 +97,16 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  # SMTP settings for gmail
+
   config.action_mailer.smtp_settings = {
-   :address              => "smtp.zoho.com",
-   :port                 => 465,
-   :domain               => "www.zoho.com",
-   :user_name            => ENV['gmail_username'],
-   :password             => ENV['gmail_password'],
-   :authentication       => "plain",
-   :enable_starttls_auto => true,
-   :tls                  => true,
-   :ssl                  => true
+    user_name: ENV.fetch('SMTP_USERNAME', nil),
+    password: ENV.fetch('SMTP_PASSWORD', nil),
+    domain: 'daaninepal.paudelmadhav.com.np',
+    address: 'smtp-relay.brevo.com',
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { :host => "https://donation-nepal.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => "https://daaninepal.paudelmadhav.com.np" }
 end

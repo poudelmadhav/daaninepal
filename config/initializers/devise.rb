@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = Figaro.env.gmail_username
+  config.mailer_sender = ENV.fetch("DEFAULT_FROM_EMAIL") { "Daani Nepal<noreply@paudelmadhav.com.np>" }
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Devise::Mailer'
