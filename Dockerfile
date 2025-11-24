@@ -16,6 +16,7 @@ ENV RAILS_ENV=production \
     NODE_ENV=production \
     BUNDLE_DEPLOYMENT=1 \
     LANG=en_US.UTF-8 \
+    RAILS_LOG_TO_STDOUT=true \
     BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_WITHOUT="development" \
     RAILS_SERVE_STATIC_FILES=true
