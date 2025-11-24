@@ -34,7 +34,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -63,20 +63,17 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # mail Settings
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  # SMTP settings for gmail
+
   config.action_mailer.smtp_settings = {
-   :address              => "smtp.zoho.com",
-   :port                 => 465,
-   :domain               => "www.zoho.com",
-   :user_name            => ENV['gmail_username'],
-   :password             => ENV['gmail_password'],
-   :authentication       => "plain",
-   :enable_starttls_auto => true,
-   :tls                  => true,
-   :ssl                  => true
+    user_name: ENV.fetch('SMTP_USERNAME', nil),
+    password: ENV.fetch('SMTP_PASSWORD', nil),
+    domain: 'localhost',
+    address: 'smtp-relay.brevo.com',
+    port: 587,
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
