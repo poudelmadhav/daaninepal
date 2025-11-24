@@ -12,9 +12,13 @@ WORKDIR /rails
 
 # Set production environment
 ENV RAILS_ENV=production \
+    RACK_ENV=production \
     BUNDLE_DEPLOYMENT=1 \
+    LANG=en_US.UTF-8 \
+    PORT=3000 \
     BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development" \
+    RAILS_SERVE_STATIC_FILES=true
 
 # ---------------------------
 # Build stage:
