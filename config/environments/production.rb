@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -69,7 +69,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -105,7 +105,9 @@ Rails.application.configure do
     address: 'smtp-relay.brevo.com',
     port: 587,
     authentication: :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    open_timeout: 15,
+    read_timeout: 15
   }
 
   config.action_mailer.default_url_options = { :host => "https://daaninepal.paudelmadhav.com.np" }
