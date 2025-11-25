@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'figaro'
 gem 'simple_form'
-gem 'resend', '~> 1.0'
+gem 'resend', '~> 0.8.0'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
