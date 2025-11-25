@@ -63,18 +63,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # mail Settings
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :resend
   config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.smtp_settings = {
-    user_name: ENV.fetch('SMTP_USERNAME', nil),
-    password: ENV.fetch('SMTP_PASSWORD', nil),
-    domain: 'localhost',
-    address: 'smtp-relay.brevo.com',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end

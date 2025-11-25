@@ -95,20 +95,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   # mail Settings
 
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :resend
   config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.smtp_settings = {
-    user_name: ENV.fetch('SMTP_USERNAME', nil),
-    password: ENV.fetch('SMTP_PASSWORD', nil),
-    domain: 'daaninepal.paudelmadhav.com.np',
-    address: 'smtp-relay.brevo.com',
-    port: 587,
-    authentication: :plain,
-    enable_starttls_auto: true,
-    open_timeout: 15,
-    read_timeout: 15
-  }
 
   config.action_mailer.default_url_options = { :host => "https://daaninepal.paudelmadhav.com.np" }
 end
