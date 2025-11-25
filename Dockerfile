@@ -4,7 +4,7 @@
 # Base image
 # ---------------------------
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=2.5.1
+ARG RUBY_VERSION=2.6.10
 FROM ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -27,14 +27,9 @@ ENV RAILS_ENV=production \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Use archive.debian.org for Stretch and disable expired checks
-RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
-    echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list && \
-    echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
-
-# Install build dependencies (allow unauthenticated due to expired keys)
+# Install build dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y --allow-unauthenticated \
+    apt-get install --no-install-recommends -y \
       build-essential curl git libpq-dev libvips node-gyp pkg-config python && \
     rm -rf /var/lib/apt/lists/*
 
@@ -67,14 +62,9 @@ RUN SECRET_KEY_BASE=1 ./bin/rails assets:precompile
 # ---------------------------
 FROM base AS final
 
-# Use archive.debian.org for Stretch
-RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
-    echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list && \
-    echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
-
 # Install runtime dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y --allow-unauthenticated \
+    apt-get install --no-install-recommends -y \
       curl libvips postgresql-client && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
